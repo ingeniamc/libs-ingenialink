@@ -55,12 +55,12 @@
 /** Ethernet MCB frame crc first word position. */
 #define ECAT_MCB_CRC_POS 6
 /** Ethernet MCB frame CRC size (words). */
-#define ECAT_MCB_CRC_SZ 1
+#define ECAT_MCB_CRC_WORDS_SZ 1
 
 /** Ethernet MCB COCO Subnode value */
 #define ECAT_MCB_SUBNODE_COCO    0
 /** Ethernet MCB MOCO Subnode value */
-#define ECAT_MCB_SUBNODE_MOCO    1   
+#define ECAT_MCB_SUBNODE_MOCO    1
 
 /** Ethernet MCB default node */
 #define ECAT_MCB_NODE_DFLT   0xA

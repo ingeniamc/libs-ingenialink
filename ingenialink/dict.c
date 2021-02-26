@@ -41,10 +41,6 @@ static void xml_error(void *ctx, const char *msg, ...)
 }
 
 /**
- * Parse storage.
- */
-
-/**
  * Parse labels.
  *
  * @param [in] node
@@ -535,13 +531,13 @@ static void parse_reg_range(xmlNodePtr node, il_reg_t *reg)
  * @param [in, out] reg
  *	Register.
  */
-static void parse_reg_enums(xmlNodePtr node, il_reg_t *reg) 
+static void parse_reg_enums(xmlNodePtr node, il_reg_t *reg)
 {
 	xmlNode *enumeration;
 	int index = 0;
 	for (enumeration = node->children; enumeration; enumeration = enumeration->next) {
 		xmlChar *value, *content;
-		
+
 		if (enumeration->type != XML_ELEMENT_NODE)
 			continue;
 
@@ -549,7 +545,7 @@ static void parse_reg_enums(xmlNodePtr node, il_reg_t *reg)
 		if (content) {
 			il_reg_enum_t new_enum;
 			value = xmlGetProp(enumeration, (const xmlChar *)"value");
-			if (value != NULL) {		
+			if (value != NULL) {
 				reg->enums[index].value = atoi(value);
 				reg->enums[index].label = strdup(content);
 				index = index + 1;
@@ -594,10 +590,10 @@ static int parse_reg_props(xmlNodePtr node, il_reg_t *reg)
 			parse_reg_range(prop, reg);
 		reg->enums_count = 0;
 		if (xmlStrcmp(prop->name, (const xmlChar *)"Enumerations") == 0) {
-			
+
 			parse_reg_enums(prop, reg);
 		}
-			
+
 
 	}
 
@@ -670,7 +666,7 @@ static int parse_reg(xmlNodePtr node, il_dict_t *dict, int subnode)
 	cyclic = xmlGetProp(node, (const xmlChar *)"cyclic");
 	if (!cyclic) reg->cyclic = "";
 	else reg->cyclic = (char *)cyclic;
-	
+
 	/* parse: address */
 	param = xmlGetProp(node, (const xmlChar *)"address");
 	if (!param) {
@@ -877,7 +873,7 @@ il_dict_t *il_dict_create(const char *dict_f)
 		r = IL_EFAIL;
 		goto cleanup_xpath;
 	}
-	
+
 	xmlNodePtr node_ver = obj_ver->nodesetval->nodeTab[0];
 	dict->version = node_ver->children[0].content;
 
@@ -947,7 +943,7 @@ il_dict_t *il_dict_create(const char *dict_f)
 			xmlNodePtr registers_node = axis_node->children->next->children;
 
 			for (cur_node = registers_node; cur_node; cur_node = cur_node->next) {
-				if (cur_node->type == XML_ELEMENT_NODE) {			
+				if (cur_node->type == XML_ELEMENT_NODE) {
 					int subnode = 1;
 					r = parse_reg(cur_node, dict, &subnode);
 					if (r < 0)
@@ -1379,7 +1375,7 @@ void il_dict_reg_ids_destroy(const char **ids)
 	free((char **)ids);
 }
 
-const char *il_dict_version_get(il_dict_t *dict) 
+const char *il_dict_version_get(il_dict_t *dict)
 {
 	return dict->version;
 }
